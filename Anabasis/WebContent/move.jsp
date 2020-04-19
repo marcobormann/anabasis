@@ -25,4 +25,24 @@
 	document.getElementById('${param.piece_id}').ondragstart = function() {
 		return false;
 	};
+	document.getElementById('${param.piece_id}').ontouchstart = function() {
+		this.style.position = 'absolute';
+		var self = this;
+		var ref = self.getBoundingClientRect();
+		var totalref = document.getElementById('00').getBoundingClientRect();
+		var cx = 0;
+		var cy = 0;
+		document.ontouchmove = function(e) {
+			e = e || event;
+			fixPageXY(e);
+			self.style.left = e.pageX - ref.left - ${height/16} + 'px';
+			self.style.top = e.pageY - ref.top - ${height/16} + 'px';
+			cx = e.pageX - totalref.left;
+			cy = e.pageY - totalref.top;
+		}
+		document.ontouchend = function() {
+			document.ontouchmove = null;
+			setTarget(self.id, cx, cy);
+		}
+	};
 </script>
