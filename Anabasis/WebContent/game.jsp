@@ -79,7 +79,7 @@
 	</script>
 </c:if>
 </head>
-<body bgcolor="#d3d3d3">
+<body class="lock-screen" bgcolor="#d3d3d3">
 	<c:set var="screen" value="${height}" />
 	<div align="center">
 		<table>

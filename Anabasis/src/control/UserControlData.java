@@ -17,12 +17,30 @@ public class UserControlData {
 	private List<Match> matchList;
 	private List<String> resultList;
 	private int nextMatchId = 1;
-
+	private String selectedEngine;
+	private String selectedMatch;
+	
 	public UserControlData() {
 		updateEngineList();
 		updateTopList();
 		updateResultList();
 		matchList = new Vector<Match>();
+	}
+	
+	public String getSelectedEngine() {
+		return selectedEngine;
+	}
+
+	public void setSelectedEngine(String selectedEngine) {
+		this.selectedEngine = selectedEngine;
+	}
+
+	public String getSelectedMatch() {
+		return selectedMatch;
+	}
+
+	public void setSelectedMatch(String selectedMatch) {
+		this.selectedMatch = selectedMatch;
 	}
 
 	public List<String> getResultList() {
@@ -206,5 +224,6 @@ public class UserControlData {
 			}
 		}
 	}
+
 
 }

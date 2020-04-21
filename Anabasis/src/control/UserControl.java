@@ -77,6 +77,7 @@ public class UserControl extends HttpServlet {
 		}
 		removeEndedGames(session);
 		new ContextReader(getServletContext()).updateGameEnds();
+		saveSelected(request, data);
 		String action = request.getParameter("action");
 		if(action==null){action="";}
 		String error = handleUserActions(action, request);
@@ -95,6 +96,11 @@ public class UserControl extends HttpServlet {
 		response.sendRedirect(response.encodeURL(request.getContextPath()+ "/logged.jsp"));
 	}
 	
+	private void saveSelected(HttpServletRequest request, UserControlData data) {
+		data.setSelectedEngine(request.getParameter("selectedEngine")); 
+		data.setSelectedMatch(request.getParameter("selectedMatch")); 
+	}
+
 	private void removeEndedGames(HttpSession session) {
 		Game game = (Game) session.getAttribute(GAME);
 		if(game!=null){

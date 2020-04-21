@@ -13,7 +13,11 @@
 		var id = '${user.id}';
 		var height = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
 		height = height-40;
-		var params = "action=update&id=" + id + "&height=" + height;
+		var engines = document.getElementById("engines");
+		var selectedEngine = engines.options[engines.selectedIndex].value;
+		var matches = document.getElementById("matches");
+		var selectedMatch = matches.options[matches.selectedIndex].value;
+		var params = "action=update&id=" + id + "&height=" + height + "&selectedEngine=" + selectedEngine + "&selectedMatch=" + selectedMatch;
 		xmlhttp.open("POST", "/Anabasis/UserControl", true);
 		xmlhttp.setRequestHeader("Content-type",
 				"application/x-www-form-urlencoded");
@@ -63,10 +67,13 @@
 							</select>
 						</p></td>
 					<td><p>
-							engines<br /> <select name="selected_engine" size="10">
+							engines<br /> <select id="engines" name="selected_engine" size="10">
 								<c:forEach var="engine" items="${data.engineList}">
-									<option value='<c:out value="${engine.id}"/>'>
-										<c:out value="${engine.name}" /> (<c:out value="${engine.rating}" />)
+									<option value='<c:out value="${engine.id}"/>'
+										<c:if test="${engine.id==data.selectedEngine}">
+											selected
+										</c:if>
+									><c:out value="${engine.name}" /> (<c:out value="${engine.rating}" />)
 								</c:forEach>
 							</select>
 						<p></td>
@@ -83,13 +90,16 @@
 				</tr>
 			</table>
 			<p>
-				active games<br /> <select class="games" name="selected_game" size="3">
+				active games<br /> <select id="matches" class="games" name="selected_game" size="3">
 					<c:if test="${data.matchList.size()==0}">
 						<option disabled="disabled">please create a game</option>
 					</c:if>
 					<c:forEach var="match" items="${data.matchList}">
-						<option value='<c:out value="${match.id}"/>'>
-							<c:out value="${match.toString()}" />
+						<option value='<c:out value="${match.id}"/>'
+							<c:if test="${match.id==data.selectedMatch}">
+								selected
+							</c:if>
+						><c:out value="${match.toString()}" />
 					</c:forEach>
 				</select>
 			</p>
